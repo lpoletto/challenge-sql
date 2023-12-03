@@ -1,3 +1,5 @@
+--Autor: Lautaro Poletto
+
 CREATE DATABASE Ecommerce;
 GO
 
