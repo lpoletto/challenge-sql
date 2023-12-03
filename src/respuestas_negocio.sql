@@ -6,7 +6,7 @@ SELECT c.CustomerID,
 	c.FirstName,
 	c.LastName, 
 	c.Email
-	--SUM(o.Cantidad * i.PrecioUnitario) as Ventas
+	--SUM(o.Quantity * i.Price) > 1500 as Sales
 FROM [dbo].[Customer] c
 INNER JOIN [dbo].[Order] o 
 	ON	c.CustomerID = o.SellerID
