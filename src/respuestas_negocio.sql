@@ -1,3 +1,5 @@
+--Autor: Lautaro Poletto
+
 --1.	Listar los usuarios que cumplan años el día de hoy cuya cantidad de ventas
 --		realizadas en enero 2020 sea superior a 1500.
 SELECT c.CustomerID, 
