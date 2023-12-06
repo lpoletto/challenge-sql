@@ -59,9 +59,14 @@ ORDER BY [Año de análisis], Mes, [Monto Total] DESC
 -- 		vamos a tener únicamente el último estado informado por la PK definida. (Se puede
 -- 		resolver a través de StoredProcedure)
 
-CREATE PROCEDURE populate_table_item_price_status
+CREATE OR ALTER PROCEDURE populate_table_item_price_status
 AS
 BEGIN
+
+BEGIN TRY;
+
+BEGIN TRANSACTION;
+
 	IF OBJECT_ID('dbo.ItemPriceStatus', 'U') IS NULL
 	BEGIN
 		CREATE TABLE ItemPriceStatus(
@@ -75,11 +80,12 @@ BEGIN
 			REFERENCES Item(ItemID)
 		);
 	END
-
+	
 	-- Borrar los datos del día anterior
 	TRUNCATE TABLE ItemPriceStatus;
 
 	-- Insertar los datos de los items a fin del dia
+	BEGIN;
 	INSERT INTO ItemPriceStatus(ItemID, Price, ItemStatus, LastStatusDate, ExecutionTimestamp)
 	SELECT	ItemID
 			,Price
@@ -87,6 +93,21 @@ BEGIN
 			,IIF(ISNULL(DateUntil,'1900-01-01') > DateFrom, DateUntil, DateFrom) as LastStatusDate
 			,GETDATE() as Timestamp_
 	FROM Item
+	END;
+
+COMMIT TRANSACTION;
+
+END TRY
+BEGIN CATCH;
+	IF (@@TRANCOUNT > 0)
+	 BEGIN;
+		ROLLBACK TRANSACTION;
+	 END;
+	PRINT 'Error occurred in ' + ERROR_PROCEDURE() + ' ' + ERROR_MESSAGE();
+	RETURN -1;
+END CATCH;
+
+	RETURN 0;
 
 END;
 GO
