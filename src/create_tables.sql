@@ -124,7 +124,7 @@ INSERT [dbo].[Customer] ([CustomerID], [FirstName], [LastName], [Email], [Addres
 GO
 INSERT [dbo].[Customer] ([CustomerID], [FirstName], [LastName], [Email], [Address], [BirthDate], [Sex], [CustomerTypeID]) VALUES (5, N'Milhouse', N'Van Houten', N'milhouse@example.com', N'745 Evergreen Terrace', CAST(N'1980-03-26' AS Date), N'M', 2)
 GO
-INSERT [dbo].[Customer] ([CustomerID], [FirstName], [LastName], [Email], [Address], [BirthDate], [Sex], [CustomerTypeID]) VALUES (6, N'Seymour', N'Skinner', N'skinner@example.com', N'123 Street Fake', CAST(N'1953-07-05' AS Date), N'M', 2)
+INSERT [dbo].[Customer] ([CustomerID], [FirstName], [LastName], [Email], [Address], [BirthDate], [Sex], [CustomerTypeID]) VALUES (6, N'Seymour', N'Skinner', N'skinner@email.com', N'123 Street Fake', CAST(N'1953-07-05' AS Date), N'M', 2)
 GO
 SET IDENTITY_INSERT [dbo].[Customer] OFF
 GO
